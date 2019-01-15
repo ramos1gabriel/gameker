@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+	 
+		<link  rel="stylesheet" href="css/material.min.css"/>	
+		<style type="text/css">
+			.mdl-layout {
+				align-items: center;
+			  justify-content: center;
+			}
+			.mdl-layout__content {
+				background: url('../assets/forest-patrol.jpg') cover;
+				padding: 24px;
+				flex: none;
+			}
+		</style>
+	 
+		<script type="text/javascript" src="js/material.min.js"></script>	
+		<title>Login</title>
+	</head>
+	<body>
+		<form action="#" th:action="@{/}"  method="post">
+			<div class="mdl-layout mdl-js-layout mdl-color--blue-grey-100">
+				<div class="mdl-layout__content">
+				
+					<div class="mdl-card mdl-shadow--6dp">
+						<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+							<h2 class="mdl-card__title-text">LOGIN</h2>
+						</div>
+			 
+				  		<div class="mdl-card__supporting-text">
+							<span th:if="${param.error}">						
+						    	<span style='color:red' th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+							</span>
+				 
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="input-usuario" name="username"/>
+								<label class="mdl-textfield__label" for="input-usuario">Usuário:</label>
+							</div>
+	
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="password" id="input-senha" name="password"/>
+								<label class="mdl-textfield__label" for="input-senha">Senha:</label>
+							</div>
+						</div>
+						
+						<div class="mdl-card__actions mdl-card--border" style="text-align:right;">
+							<button class="mdl-button mdl-button--colored mdl-js-button" >
+								Esqueci a senha
+							</button>
+							
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+								Acessar
+							</button>
+							
+						    <!-- 
+							CSRF (Cross-site request forgery) é um tipo de ataque informático malicioso a um website no 
+							qual comandos não autorizados são transmitidos através de um utilizador em quem o website confia.
+							-->
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

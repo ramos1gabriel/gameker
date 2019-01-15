@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="base/layout">
+	<head>
+	    <title>Home Page</title>
+	 
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+		<style>
+			.mdl-grid {
+				max-width: 500px;
+				margin-top: 30px;
+			}
+			/* custom styles */
+			
+			.acme-card {
+				width: 500px;
+				height: 500px;
+				background: url('/assets/takagi-megumin.jpg') center / cover;
+			}
+			.acme-card-file {
+				padding: 1em;
+				color: #fff;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+		</style>
+	</head>
+	<body>
+		<section layout:fragment="content">
+		 
+		    <!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->   
+		   <div class="mdl-grid">   
+		    <div class="mdl-layout-spacer"></div>
+			<div class="acme-card mdl-card mdl-shadow--4dp">
+				<div class="mdl-card__title mdl-card--expand"></div>
+				<div class="acme-card-file mdl-card__actions">
+					<span class="demo-card-image__filename"><h4>&nbsp;Sistema de Cadastro de Jogos&nbsp;</h4></span>
+				</div>
+			</div>
+		    <div class="mdl-layout-spacer"></div>
+		</div>
+		 
+		</section>
+	</body>
+</html>

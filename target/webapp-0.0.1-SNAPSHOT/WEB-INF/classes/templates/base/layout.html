@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content=""/>
+	<meta name="author" content=""/>
+ 
+    <title>blog</title>
+ 
+    <link  rel="stylesheet" th:href="@{/css/material.min.css}"/>
+    <link  rel="stylesheet" th:href="@{/css/sistema.css}"/>
+ 
+    <script type="text/javascript" th:src="@{/js/material.min.js}"></script>
+ 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+ 
+</head>
+<body>
+ 
+<!-- FORM QUE VAI SER USADO PARA REALIZAR O LOGOUT -->
+<form th:action="@{/logout}" id="form_logou"	th:method="post">
+<input type="hidden"	th:name="${_csrf.parameterName}"	th:value="${_csrf.token}"/>
+</form>
+ 
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+ 
+  <!-- header->MONTA O MENU SUPERIOR -->  
+  <header class="mdl-layout__header">   	   	
+    <div class="mdl-layout__header-row">
+ 
+      <a class="mdl-navigation__link" th:href="@{/home}">    
+      	<span class="mdl-layout-title">SISTEMA</span>
+	  </a>          
+ 
+      <div class="mdl-layout-spacer"></div>      
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+ 
+      	<!-- REDIRECIONA PARA A HOME PAGE -->
+      	<a class="mdl-navigation__link" th:href="@{/home}">Home</a>
+ 
+      	 <!-- REDIRECIONA PARA A PÁGINA DE CADASTRO -->
+        <a class="mdl-navigation__link" th:href="@{/usuario/novoCadastro}">Cadastro</a>
+ 
+        <!-- REDIRECIONA PARA A PÁGINA DE CONSULTA -->
+        <a class="mdl-navigation__link" th:href="@{/usuario/consultar}">Consulta</a>
+ 
+        <!-- SAI DA APLICAÇÃO E VOLTA PARA A PÁGINA DE LOGIN -->
+        <a class="mdl-navigation__link" href="#" onclick="document.getElementById('form_logou').submit();">Logout</a>        
+      </nav>
+    </div>
+  </header>
+ 
+  <!-- MONTA O MENU LATERAL -->
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">MENU</span>
+    <nav class="mdl-navigation">
+      <!-- REDIRECIONA PARA A HOME PAGE -->
+      <a class="mdl-navigation__link" th:href="@{/home}">Home</a>
+      <!-- REDIRECIONA PARA A PÁGINA DE CADASTRO -->
+      <a class="mdl-navigation__link" th:href="@{/usuario/novoCadastro}">Cadastro</a>
+      <!-- REDIRECIONA PARA A PÁGINA DE CONSULTA -->
+      <a class="mdl-navigation__link" th:href="@{/usuario/consultar}">Consulta</a>
+       <!-- SAI DA APLICAÇÃO E VOLTA PARA A PÁGINA DE LOGIN -->     
+      <a class="mdl-navigation__link" href="#" onclick="document.getElementById('form_logou').submit();">Logout</a>      
+    </nav>
+  </div>
+ 
+  <!-- PARTE QUE VAI SER SUBSTITUÍDA PELO CONTEUDO DAS PÁGINAS -->
+  <main class="mdl-layout__content mdl-color--blue-grey-100">
+    <div class="page-content">
+ 
+    	 <!-- CONTEUDO A SER SUBSTITUÍDO -->
+    	  <div layout:fragment="content">Essa parte vai ser substituída </div>
+    </div>
+  </main>
+</div>
+ 
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="@{~/base/layoutExterno}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+	 
+		<title>Novo cadastro de usuário</title>
+	 
+		<script type="text/javascript">
+			function limparMensagem(){
+				document.getElementById('p-mensagem-sucesso').innerHTML = '';	
+			}
+		</script>
+	</head>
+	<body>
+	<section layout:fragment="content">
+	 
+ 		<!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->   
+		<div class="mdl-grid">   
+			<div class="mdl-layout-spacer"></div>    
+				<section class="section--center mdl-grid mdl-shadow--4dp mdl-color--white">
+ 
+					<div class="mdl-cell mdl-cell--12-col">
+						<div class="alinhar-centro">
+							<i class="material-icons mdl-list__item-avatar">person</i>
+							<span style="padding-left:5px;">Cadastro</span>			  
+						</div>
+
+						<form action="#" id="formulario-cadastro" th:action="@{../usuario/salvarUsuario}" th:object="${usuarioModel}" method="post">
+							<fieldset>
+								<ul class="mdl-list">
+						 
+									<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+									<li class="mdl-list__item" th:if="${msg_resultado}">						 	
+										<p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>		
+									</li>
+						 
+							 		<!-- CAMPO NOME -->
+									<li class="mdl-list__item">			 		  
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="text" id="input-nome" th:field="*{nome}" onfocus="limparMensagem()"/>
+											<label class="mdl-textfield__label" for="input-nome">Nome...</label>
+											<p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="erro-msg">...</p>
+										</div>
+									</li>
+						 
+									<!-- CAMPO LOGIN -->
+									<li class="mdl-list__item">
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="text" id="input-login" th:field="*{login}"/>
+											<label class="mdl-textfield__label" for="input-login">Login...</label>
+											<p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="erro-msg">...</p>
+									 	</div>
+									 </li>
+						 
+									<!-- CAMPO SENHA -->
+									<li class="mdl-list__item">
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="password" id="input-senha" th:field="*{senha}"/>
+											<label class="mdl-textfield__label" for="input-senha">Senha...</label>
+											<p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="erro-msg">...</p>
+										</div>
+									</li>
+									
+									<!-- VALIDACOES -->
+									<li class="mdl-list__item">
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<p id="p-mensagem-erro1" class="erro-msg" th:text="${tamanhoLogin}"></p>
+											<p id="p-mensagem-erro2" class="erro-msg" th:text="${tamanhoSenha}"></p>
+											<p id="p-mensagem-erro3" class="erro-msg" th:text="${erroDuplicidade}"></p>
+										</div>
+									</li>
+						 		</ul>
+							</fieldset>
+					 
+							<div class="mdl-grid">
+								<div class="mdl-layout-spacer"></div>
+								<div class="mdl-cell mdl-cell--4-col" style="padding-right:10px;">
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Salvar</button>
+								</div>
+							</div>  
+						</form>
+					</div>
+				</section>
+				<div class="mdl-layout-spacer"></div>
+			</div>
+		</section>
+	</body>
+</html>

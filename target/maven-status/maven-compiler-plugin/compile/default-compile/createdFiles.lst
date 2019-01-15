@@ -1,0 +1,16 @@
+br\com\gameker\webapp\model\UsuarioModel.class
+br\com\gameker\webapp\WebappApplication.class
+br\com\gameker\webapp\model\GrupoModel.class
+br\com\gameker\webapp\WebappApplication1.class
+br\com\gameker\webapp\model\UsuarioSecurityModel.class
+br\com\gameker\webapp\entity\UsuarioEntity.class
+br\com\gameker\webapp\service\UsuarioService.class
+br\com\gameker\webapp\service\GrupoService.class
+br\com\gameker\webapp\controller\UsuarioController.class
+br\com\gameker\webapp\repository\GrupoRepository.class
+br\com\gameker\webapp\controller\MainController.class
+br\com\gameker\webapp\repository\PermissaoRepository.class
+br\com\gameker\webapp\WebSecurityConfig.class
+br\com\gameker\webapp\entity\GrupoEntity.class
+br\com\gameker\webapp\repository\UsuarioRepository.class
+br\com\gameker\webapp\entity\PermissaoEntity.class

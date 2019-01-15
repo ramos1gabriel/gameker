@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="@{~/base/layout}">
+	  
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+		 
+		<title>Consultar Jogos</title>
+	</head>
+	<body>
+	
+		<section layout:fragment="content">
+ 
+			<!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->   
+			<div class="mdl-grid">   
+				<div class="mdl-layout-spacer"></div>    
+				<section class="section--center mdl-grid mdl-shadow--4dp mdl-color--white">
+ 
+					<div class="mdl-cell mdl-cell--12-col">
+						<div class="alinhar-centro">
+							<i class="material-icons md-48">videogame_asset</i>
+							<span style="padding-left:5px;">Consultar Jogos Cadastrados</span>  
+						</div>
+ 
+						<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+							<!-- CABEÇALHO DA TABELA -->
+							<thead>
+								<tr>
+									<th>Código</th>
+									<th class="mdl-data-table__cell--non-numeric">Nome</th>
+									<th class="mdl-data-table__cell--non-numeric">Status</th>
+									<th class="mdl-data-table__cell--non-numeric">Nota</th>
+									<th class="mdl-data-table__cell--non-numeric">Editar</th>
+									<th class="mdl-data-table__cell--non-numeric">Excluir</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- PREENCHENDO A TABELA COM OS USUÁRIOS CADASTRADOS-->
+								<th:block th:each="gameModel : ${gamesModel}">
+									<tr>
+										<td th:text="${gameModel.codigo}"></td>
+										<td th:text="${gameModel.nome}" class="mdl-data-table__cell--non-numeric"></td>
+										
+										<td class="mdl-data-table__cell--non-numeric">
+											<span th:if="${gameModel.status == '0'}">Incompleto</span>
+											<span th:if="${gameModel.status == '1'}">Zerado</span>
+											<span th:if="${gameModel.status == '2'}">Platinado</span>
+										</td>
+										
+										<td th:text="${gameModel.nota}" class="mdl-data-table__cell--non-numeric"></td>
+										
+										<td>
+											<!-- REALIZANDO A REQUEST PARA EDITAR UM CADASTRO -->
+											<form action="#" th:action="@{../game/editarCadastroGame}" method="get">
+												<input type="hidden" name="codigoGame" th:value="${gameModel.codigo}" />					   			
+												<button type="submit"  class="mdl-chip__action"><i class="material-icons">create</i></button>
+											</form>
+										</td>
+										<td>
+											<!-- EXCLUINDO UM REGISTRO CADASTRADO -->
+											<form action="#" th:action="@{../game/excluirGame}" method="post">
+												<input type="hidden" name="codigoGame" th:value="${gameModel.codigo}" />								 					   			 
+												<button type="submit" class="mdl-chip__action" onclick="return confirm('Deseja realmente excluir esse registro?');"><i class="material-icons">delete</i></button>
+											</form>
+										</td>
+									</tr>
+								</th:block>	
+							</tbody>	
+						</table>
+					</div>
+				</section>
+				<div class="mdl-layout-spacer"></div>
+			</div>
+		</section>
+	</body>
+</html>

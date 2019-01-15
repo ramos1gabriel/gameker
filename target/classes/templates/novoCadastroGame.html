@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="@{~/base/layout}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+	 
+		<title>Cadastro de jogos</title>
+		
+		<script type="text/javascript">
+			function limparMensagem(){
+				document.getElementById('p-mensagem-sucesso').innerHTML = '';	z
+			}
+		</script>
+	</head>
+	<body>
+	
+		<section layout:fragment="content">
+			<!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->   
+			<div class="mdl-grid">   
+				<div class="mdl-layout-spacer"></div>    
+					<section class="section--center mdl-grid mdl-shadow--4dp mdl-color--white">
+
+  						<div class="mdl-cell mdl-cell--12-col">
+							<div class="alinhar-centro">
+								<i class="material-icons md-48">videogame_asset</i>
+								<span style="padding-left:5px;">Cadastro de jogos</span>			  
+							</div>
+
+							<!-- FORMULARIO DE CADASTRO -->
+							<form th:if="${gameModel.codigo == null}" action="#" id="formulario-cadastro" th:action="@{../game/salvarGame}" th:object="${gameModel}" method="post">
+								<fieldset>
+									<ul class="mdl-list">
+ 
+										<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+										<li class="mdl-list__item" th:if="${msg_resultado}">						 	
+											<p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>		
+										</li>
+
+										 <!-- CAMPO NOME -->
+										 <li class="mdl-list__item">
+											<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="text" id="input-nome" th:field="*{nome}" onfocus="limparMensagem()"/>
+												<label class="mdl-textfield__label" for="input-nome">Nome...</label>
+												<p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="erro-msg">...</p>
+											</div>
+										 </li>
+										 								 
+										<!-- CHECKBOX PLATAFORMA -->
+										<li class="mdl-list__item">
+											<table>
+												<tr>
+													<td style="color:rgb(96,125,139)">
+														<span th:text="Plataforma">...</span>						 	  					 	  
+													</td>
+												</tr>				
+												<!-- MONTA OS CKECKBOXS COM OS GRUPOS -->
+												<th:block th:each="plataforma, stat : ${plataformas}">
+													<tr>
+														<td>
+															<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" th:for="${__${plataforma.codigo}__}">
+																<input type="checkbox"									  	 
+																th:id="${__${plataforma.codigo}__}"
+																th:name="|plataformas[${stat.index}]|"
+																th:value="${plataforma.codigo}"									  		   
+																class="mdl-checkbox__input" 
+																th:checked="${plataforma.checked}"/>
+																
+																<span class="mdl-checkbox__label" th:text="${plataforma.nome}">...</span>
+															</label>
+														</td>
+													</tr>							      							      
+												</th:block>
+												<tr>
+													<td>
+														<p th:if="${#fields.hasErrors('plataformas')}" th:errors="*{plataformas}" class="erro-msg">...</p>
+													</td>
+												</tr>
+											</table>
+										</li>
+										
+										<!-- COMBOBOX STATUS -->
+										<li class="mdl-list__item">
+											<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<select class="mdl-textfield__input" th:field="*{status}" id="select-status">
+													<option value=""></option>
+													<option value="0">Incompleto</option>
+													<option value="1">Zerado</option>
+													<option value="2">Platinado</option>
+												</select>
+												<label class="mdl-textfield__label" for="octane">Status</label>
+												<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="erro-msg">...</p>
+											</div>
+										</li>
+										
+										<!-- COMBOBOX NOTA -->
+										<li class="mdl-list__item">
+											<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<select class="mdl-textfield__input" th:field="*{nota}" id="select-nota">
+													<option value=""></option>
+													<option value="10">(10) Obra-prima</option>
+													<option value="9">(9) Maravilhoso</option>
+													<option value="8">(8) Muito Bom</option>
+													<option value="7">(7) Bom</option>
+													<option value="6">(6) Legal</option>
+													<option value="5">(5) Médio</option>
+													<option value="4">(4) Ruim</option>
+													<option value="3">(3) Muito Ruim</option>
+													<option value="2">(2) Horrível</option>
+													<option value="1">(1) Apavorante</option>
+												</select>
+												<label class="mdl-textfield__label" for="octane">Nota</label>
+												<p th:if="${#fields.hasErrors('nota')}" th:errors="*{nota}" class="erro-msg">...</p>
+											</div>
+										</li>
+										
+									</ul>
+								</fieldset>
+ 
+							<div class="mdl-grid">
+								<div class="mdl-layout-spacer"></div>
+								<div class="mdl-cell mdl-cell--4-col" style="padding-right:10px;">
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Salvar</button>
+								</div>
+							</div>  
+						</form>
+						
+						<!-- FORMULARIO DE ALTERACAO -->
+						<form th:if="${gameModel.codigo != null}" action="#" id="formulario-cadastro" th:action="@{../game/salvarAlteracaoGame}" th:object="${gameModel}" method="post">
+								<fieldset>
+									<ul class="mdl-list">
+ 
+										<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+										<li class="mdl-list__item" th:if="${msg_resultado}">						 	
+											<p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>		
+										</li>
+										
+										<li class="mdl-list__item">			 		  
+											<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="text" id="input-codigo" th:field="*{codigo}" readonly="readonly"/>
+												<label class="mdl-textfield__label" for="input-codigo">Código...</label>
+											</div>
+										</li>
+
+										 <!-- CAMPO NOME -->
+										 <li class="mdl-list__item">
+											<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="text" id="input-nome" th:field="*{nome}" onfocus="limparMensagem()"/>
+												<label class="mdl-textfield__label" for="input-nome">Nome...</label>
+												<p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="erro-msg">...</p>
+											</div>
+										 </li>
+										 								 
+										<!-- CHECKBOX PLATAFORMA -->
+										<li class="mdl-list__item">
+											<table>
+												<tr>
+													<td style="color:rgb(96,125,139)">
+														<span th:text="Plataforma">...</span>						 	  					 	  
+													</td>
+												</tr>				
+												<!-- MONTA OS CKECKBOXS COM OS GRUPOS -->
+												<th:block th:each="plataforma, stat : ${plataformas}">
+													<tr>
+														<td>
+															<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" th:for="${__${plataforma.codigo}__}">
+																<input type="checkbox"									  	 
+																th:id="${__${plataforma.codigo}__}"
+																th:name="|plataformas[${stat.index}]|"
+																th:value="${plataforma.codigo}"									  		   
+																class="mdl-checkbox__input" 
+																th:checked="${plataforma.checked}"/>
+																
+																<span class="mdl-checkbox__label" th:text="${plataforma.nome}">...</span>
+															</label>
+														</td>
+													</tr>							      							      
+												</th:block>
+												<tr>
+													<td>
+														<p th:if="${#fields.hasErrors('plataformas')}" th:errors="*{plataformas}" class="erro-msg">...</p>
+													</td>
+												</tr>
+											</table>
+										</li>
+										
+										<!-- COMBOBOX STATUS -->
+										<li class="mdl-list__item">
+											<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<select class="mdl-textfield__input" th:field="*{status}" id="select-status">
+													<option value=""></option>
+													<option value="0">Incompleto</option>
+													<option value="1">Zerado</option>
+													<option value="2">Platinado</option>
+												</select>
+												<label class="mdl-textfield__label" for="octane">Status</label>
+												<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="erro-msg">...</p>
+											</div>
+										</li>
+										
+										<!-- COMBOBOX NOTA -->
+										<li class="mdl-list__item">
+											<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<select class="mdl-textfield__input" th:field="*{nota}" id="select-nota">
+													<option value=""></option>
+													<option value="10">(10) Obra-prima</option>
+													<option value="9">(9) Maravilhoso</option>
+													<option value="8">(8) Muito Bom</option>
+													<option value="7">(7) Bom</option>
+													<option value="6">(6) Legal</option>
+													<option value="5">(5) Médio</option>
+													<option value="4">(4) Ruim</option>
+													<option value="3">(3) Muito Ruim</option>
+													<option value="2">(2) Horrível</option>
+													<option value="1">(1) Apavorante</option>
+												</select>
+												<label class="mdl-textfield__label" for="octane">Nota</label>
+												<p th:if="${#fields.hasErrors('nota')}" th:errors="*{nota}" class="erro-msg">...</p>
+											</div>
+										</li>
+										
+									</ul>
+								</fieldset>
+ 
+							<div class="mdl-grid">
+								<div class="mdl-layout-spacer"></div>
+								<div class="mdl-cell mdl-cell--4-col" style="padding-right:10px;">
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Salvar</button>
+								</div>
+							</div>  
+						</form>
+					</div>
+					
+				</section>
+   				<div class="mdl-layout-spacer"></div>
+			</div>
+		</section>
+	</body>
+</html>
