@@ -9,6 +9,11 @@
 * Material Designer
 * <strike>Oracle</strike> (MySQL)
 
+## Como subir o projeto
+1. Rodar o script "bd.sql" no MySQL
+2. Dar build no Maven
+3. Executar a classe "WebappApplication.java"
+
 ### Descrição do projeto
 
 Nesse tutorial vamos aprender a criar uma aplicação Web usando o Spring Boot com as seguintes tecnologias do Spring: Spring MVC, Spring Security e Spring Data.
